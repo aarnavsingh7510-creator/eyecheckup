@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Basic Reset & Styles */
+        /* [Keep all your existing CSS styles exactly the same] */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #1e293b; background: #f8fafc; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -39,18 +39,26 @@
         }
         .file-upload { 
             border: 2px dashed #cbd5e1; border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; 
-            transition: all 0.3s; background: white; position: relative;
+            transition: all 0.3s; background: white;
         }
         .file-upload:hover { border-color: #00d4ff; background: #f0f9ff; }
-        .file-upload.dragover { border-color: #00d4ff; background: #e0f2fe; }
-        .file-name { margin-top: 1rem; color: #10b981; font-weight: 600; }
         .submit-btn { 
-            width: 100%; background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; 
+            width: 100%; background: linear-gradient(135deg, #25D366, #128C7E); color: white; 
             border: none; padding: 1.5rem; border-radius: 50px; font-size: 1.3rem; font-weight: 600; 
             cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.8rem;
         }
-        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,212,255,0.4); }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(37,211,102,0.4); }
         .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn { 
+            background: linear-gradient(135deg, #25D366, #128C7E); color: white; 
+            border: none; padding: 1.2rem 2rem; border-radius: 50px; font-size: 1.1rem; 
+            font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; 
+            align-items: center; justify-content: center; gap: 0.8rem; width: 100%; margin-top: 1rem;
+            text-decoration: none;
+        }
+        .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(37,211,102,0.4); }
         
         /* Success Message */
         .success-message { 
@@ -81,11 +89,12 @@
             .hero-content h1 { font-size: 2.5rem; }
             .form-container { padding: 2rem; margin: 1rem; }
             .section { padding: 60px 0; }
-            .hero { height: 50vh; }
         }
     </style>
 </head>
 <body>
+    <!-- [Keep your existing Header, Hero, and Form HTML exactly the same until the form] -->
+    
     <!-- Header -->
     <header>
         <nav>
@@ -93,23 +102,23 @@
                 <i class="fas fa-eye"></i>
                 EyeCare Clinic
             </a>
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="book-appointment.html" style="color: #00d4ff; font-weight: 600;">Book Appointment</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover;">
+    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 80px;">
         <div class="hero-content">
             <h1>Book Your Eye Appointment</h1>
-            <p>Upload your prescription photo/PDF and describe your symptoms. We'll contact you within 24 hours.</p>
+            <p>Submit your details and get instant WhatsApp confirmation! 🩺📱</p>
         </div>
     </section>
 
@@ -119,14 +128,10 @@
             <div class="form-container" id="formContainer">
                 <h2 style="text-align: center; color: #1e3c72; margin-bottom: 1rem; font-size: 2.5rem;">Appointment Request</h2>
                 <p style="text-align: center; color: #64748b; font-size: 1.1rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    📋 Fill out the form below with your details and upload your prescription. Our eye specialists will review and call you to schedule.
+                    📋 Fill out the form and click submit to send your appointment request directly to WhatsApp!
                 </p>
 
-                <!-- FORMSPREE FORM -->
-                <form id="appointmentForm" action="https://formspree.io/f/mdapypdd" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="_subject" value="🩺 New EyeCare Appointment Request">
-                    <input type="hidden" name="_next" value="#success">
-                    
+                <form id="appointmentForm">
                     <!-- Row 1 -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                         <div class="form-group">
@@ -151,26 +156,6 @@
                         </div>
                     </div>
 
-                    <!-- Prescription Upload -->
-                    <div class="form-group" style="margin-bottom: 2rem;">
-                        <label style="display: block; margin-bottom: 1rem; font-weight: 600; color: #1e3c72;">
-                            <i class="fas fa-file-medical"></i> Prescription Document <span style="color: #ef4444;">*</span>
-                        </label>
-                        <div class="file-upload" id="fileUpload">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #94a3b8;"></i>
-                            <p style="margin: 1rem 0 0.5rem 0; font-weight: 500;">Click here or drag & drop your prescription</p>
-                            <p style="font-size: 0.9rem; color: #64748b; margin: 0;">📄 PDF, JPG, PNG • Max 10MB</p>
-                            <input type="file" id="prescriptionFile" name="prescriptionFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                            <div class="file-name" id="fileName"></div>
-                        </div>
-                    </div>
-
-                    <!-- Problem Description -->
-                    <div class="form-group" style="margin-bottom: 2rem;">
-                        <label for="problem"><i class="fas fa-edit"></i> Describe Your Eye Problem <span style="color: #ef4444;">*</span></label>
-                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required></textarea>
-                    </div>
-
                     <!-- Service Type -->
                     <div class="form-group" style="margin-bottom: 3rem;">
                         <label for="serviceType"><i class="fas fa-stethoscope"></i> Service Type (Optional)</label>
@@ -187,9 +172,15 @@
                         </select>
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- Problem Description -->
+                    <div class="form-group" style="margin-bottom: 3rem;">
+                        <label for="problem"><i class="fas fa-edit"></i> Describe Your Eye Problem <span style="color: #ef4444;">*</span></label>
+                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required></textarea>
+                    </div>
+
+                    <!-- WhatsApp Submit Button -->
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Submit Appointment Request
+                        <i class="fab fa-whatsapp"></i> Send to WhatsApp Now
                     </button>
                 </form>
             </div>
@@ -197,16 +188,16 @@
             <!-- Success Message -->
             <div id="successMessage" class="success-message" style="display: none; max-width: 700px; margin: 0 auto;">
                 <i class="fas fa-check-circle" style="font-size: 5rem; color: white; margin-bottom: 2rem;"></i>
-                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">✅ Thank You!</h3>
+                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">✅ WhatsApp Message Sent!</h3>
                 <p style="font-size: 1.3rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                    Your appointment request has been <strong>SUCCESSFULLY SUBMITTED</strong>.<br>
-                    📞 We will call you within <strong>24 hours</strong> to schedule your appointment.
+                    Your appointment request is now being sent to our WhatsApp!<br>
+                    📱 Open WhatsApp and send the message to complete your request.
                 </p>
-                <p style="font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem;">
-                    📧 Check your email for confirmation: <strong id="confirmEmail"></strong>
-                </p>
-                <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit;">
-                    <i class="fas fa-plus"></i> Submit Another Request
+                <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Open WhatsApp Message
+                </a>
+                <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; margin-top: 1rem;">
+                    <i class="fas fa-plus"></i> New Request
                 </button>
             </div>
         </div>
@@ -217,7 +208,7 @@
         <i class="fas fa-spinner fa-spin loading-spinner"></i>
     </div>
 
-    <!-- Footer -->
+    <!-- [Keep your existing Footer] -->
     <footer>
         <div class="footer-content container">
             <div class="footer-section">
@@ -237,7 +228,27 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <p><i class="fas fa-phone"></i><br>+1 (555) 123-4567</p>
-                <p><i class="fas fa-envelope"></i><br>aarnavsingh7510@gmail.com</p>
+                <p><i class="fas fa-whatsapp"></i><br><strong>WhatsApp: +1 (555) 123-4567</strong></p>
             </div>
         </div>
-        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155
+        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155; margin-top: 2rem; color: #94a3b8;">
+            &copy; 2024 EyeCare Clinic
+        </p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // File upload functionality (optional - kept for completeness)
+        const fileUpload = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('prescriptionFile');
+        const fileName = document.getElementById('fileName');
+        
+        if (fileUpload && fileInput) {
+            fileUpload.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', function() {
+                if (this.files[0]) {
+                    file
