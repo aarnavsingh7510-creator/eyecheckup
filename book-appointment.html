@@ -217,7 +217,38 @@
 
         // ===== FORM SUBMISSION =====
         <script>
+<script>
 document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get values
+    const name = document.getElementById('fullName').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value || "Not provided";
+    const age = document.getElementById('age').value || "Not provided";
+    const problem = document.getElementById('problem').value;
+    const service = document.getElementById('serviceType').value || "Not specified";
+
+    // Create message
+    const subject = "New Eye Appointment Request";
+    const body =
+`Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Age: ${age}
+Service: ${service}
+
+Problem:
+${problem}`;
+
+    // Open mail app
+    window.location.href = `mailto:aarnavsingh7510@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Show success message
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+});
+</script> {
     e.preventDefault();
 
     // Get values
