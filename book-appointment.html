@@ -1,6 +1,3 @@
-Here's the **COMPLETE WORKING CODE** with your public key already added:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,15 +39,17 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
         }
         .file-upload { 
             border: 2px dashed #cbd5e1; border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; 
-            transition: all 0.3s; background: white;
+            transition: all 0.3s; background: white; position: relative;
         }
         .file-upload:hover { border-color: #00d4ff; background: #f0f9ff; }
+        .file-upload.dragover { border-color: #00d4ff; background: #e0f2fe; }
+        .file-name { margin-top: 1rem; color: #10b981; font-weight: 600; }
         .submit-btn { 
             width: 100%; background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; 
             border: none; padding: 1.5rem; border-radius: 50px; font-size: 1.3rem; font-weight: 600; 
             cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.8rem;
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,212,255,0.4); }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,212,255,0.4); }
         .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
         
         /* Success Message */
@@ -58,6 +57,14 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
             background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 4rem 3rem; 
             border-radius: 20px; text-align: center; box-shadow: 0 20px 60px rgba(16,185,129,0.3);
         }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999;
+        }
+        .loading-spinner { color: white; font-size: 3rem; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         
         /* Footer */
         footer { background: #1e293b; color: white; padding: 4rem 0 2rem; }
@@ -74,10 +81,9 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
             .hero-content h1 { font-size: 2.5rem; }
             .form-container { padding: 2rem; margin: 1rem; }
             .section { padding: 60px 0; }
+            .hero { height: 50vh; }
         }
     </style>
-    <!-- EmailJS - FREE Email Service -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -87,28 +93,28 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                 <i class="fas fa-eye"></i>
                 EyeCare Clinic
             </a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="book-appointment.html" style="color: #00d4ff; font-weight: 600;">Book Appointment</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobileMenu">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 80px;">
-        <div class="hero-content" style="max-width: 800px;">
-            <h1 style="font-size: 3rem;">Book Your Eye Appointment</h1>
-            <p style="font-size: 1.3rem;">Upload your prescription photo/PDF and describe your symptoms. We'll contact you within 24 hours.</p>
+    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover;">
+        <div class="hero-content">
+            <h1>Book Your Eye Appointment</h1>
+            <p>Upload your prescription photo/PDF and describe your symptoms. We'll contact you within 24 hours.</p>
         </div>
     </section>
 
     <!-- Form Section -->
-    <section class="section" style="padding: 80px 0;">
+    <section class="section">
         <div class="container">
             <div class="form-container" id="formContainer">
                 <h2 style="text-align: center; color: #1e3c72; margin-bottom: 1rem; font-size: 2.5rem;">Appointment Request</h2>
@@ -116,7 +122,11 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                     📋 Fill out the form below with your details and upload your prescription. Our eye specialists will review and call you to schedule.
                 </p>
 
-                <form id="appointmentForm">
+                <!-- FORMSPREE FORM -->
+                <form id="appointmentForm" action="https://formspree.io/f/xzgrwkyw" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_subject" value="🩺 New EyeCare Appointment Request">
+                    <input type="hidden" name="_next" value="#success">
+                    
                     <!-- Row 1 -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                         <div class="form-group">
@@ -150,22 +160,21 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                             <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #94a3b8;"></i>
                             <p style="margin: 1rem 0 0.5rem 0; font-weight: 500;">Click here or drag & drop your prescription</p>
                             <p style="font-size: 0.9rem; color: #64748b; margin: 0;">📄 PDF, JPG, PNG • Max 10MB</p>
-                            <input type="file" id="prescriptionFile" name="prescriptionFile" accept=".pdf,.jpg,.jpeg,.png" required style="display: none;">
-                            <div class="file-name" id="fileName" style="margin-top: 1rem; color: #10b981; font-weight: 600;"></div>
-                            <input type="hidden" id="filenameHidden" name="filename">
+                            <input type="file" id="prescriptionFile" name="prescriptionFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <div class="file-name" id="fileName"></div>
                         </div>
                     </div>
 
                     <!-- Problem Description -->
                     <div class="form-group" style="margin-bottom: 2rem;">
                         <label for="problem"><i class="fas fa-edit"></i> Describe Your Eye Problem <span style="color: #ef4444;">*</span></label>
-                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required style="font-family: inherit;"></textarea>
+                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required></textarea>
                     </div>
 
                     <!-- Service Type -->
                     <div class="form-group" style="margin-bottom: 3rem;">
                         <label for="serviceType"><i class="fas fa-stethoscope"></i> Service Type (Optional)</label>
-                        <select id="serviceType" name="serviceType" style="font-family: inherit;">
+                        <select id="serviceType" name="serviceType">
                             <option value="">Select preferred service</option>
                             <option value="Routine Eye Exam">Routine Eye Exam</option>
                             <option value="Glasses Prescription Update">Glasses Prescription Update</option>
@@ -179,7 +188,7 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="submit-btn" id="submitBtn" style="font-size: 1.3rem;">
+                    <button type="submit" class="submit-btn" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Submit Appointment Request
                     </button>
                 </form>
@@ -194,7 +203,7 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                     📞 We will call you within <strong>24 hours</strong> to schedule your appointment.
                 </p>
                 <p style="font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem;">
-                    📧 You will also receive a confirmation email at: <strong id="confirmEmail"></strong>
+                    📧 Check your email for confirmation: <strong id="confirmEmail"></strong>
                 </p>
                 <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit;">
                     <i class="fas fa-plus"></i> Submit Another Request
@@ -202,6 +211,11 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
             </div>
         </div>
     </section>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin loading-spinner"></i>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -226,20 +240,4 @@ Here's the **COMPLETE WORKING CODE** with your public key already added:
                 <p><i class="fas fa-envelope"></i><br>info@eyecareclinic.com</p>
             </div>
         </div>
-        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155; margin-top: 2rem; color: #94a3b8;">
-            &copy; 2024 EyeCare Clinic. All rights reserved.
-        </p>
-    </footer>
-
-    <script>
-        // ===== YOUR PUBLIC KEY ALREADY ADDED =====
-        emailjs.init("9ti1hDQZdxYlpTCIK");
-
-        // ===== MOBILE MENU =====
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        // ===== FILE UPLOAD FUNCTIONALITY =====
-        const fileUpload = document.getElementById('fileUpload');
-        const fileInput = document.getElement
+        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155
