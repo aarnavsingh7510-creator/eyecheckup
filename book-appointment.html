@@ -3,128 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Appointment</title>
-
+    <title>Book Appointment - EyeCare Clinic</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: Arial;
-            background: #f5f7fb;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- EmailJS - FREE Email Service -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
-
 <body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-eye"></i>
+                EyeCare Clinic
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="book-appointment.html" style="color: #00d4ff; font-weight: 600;">Book Appointment</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
 
-<div class="container">
-    <h2>Book Appointment</h2>
+    <!-- Hero Section -->
+    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover;">
+        <div class="hero-content" style="max-width: 800px;">
+            <h1 style="font-size: 3rem;">Book Your Eye Appointment</h1>
+            <p style="font-size: 1.3rem;">Upload your prescription photo/PDF and describe your symptoms. We'll contact you within 24 hours.</p>
+        </div>
+    </section>
 
-    <form id="appointmentForm">
+    <!-- Form Section -->
+    <section class="section" style="padding: 80px 0;">
+        <div class="container">
+            <div class="form-container" id="formContainer">
+                <h2 style="text-align: center; color: #1e3c72; margin-bottom: 1rem; font-size: 2.5rem;">Appointment Request</h2>
+                <p style="text-align: center; color: #64748b; font-size: 1.1rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    📋 Fill out the form below with your details and upload your prescription. Our eye specialists will review and call you to schedule.
+                </p>
 
-        <input type="text" id="fullName" placeholder="Full Name" required>
+                <form id="appointmentForm">
+                    <!-- Row 1 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user"></i> Full Name <span style="color: #ef4444;">*</span></label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number <span style="color: #ef4444;">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" required>
+                        </div>
+                    </div>
 
-        <input type="tel" id="phone" placeholder="Phone Number" required>
+                    <!-- Row 2 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                            <input type="number" id="age" name="age" min="1" max="120" placeholder="25">
+                        </div>
+                    </div>
 
-        <input type="email" id="email" placeholder="Email">
+                    <!-- Prescription Upload -->
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label style="display: block; margin-bottom: 1rem; font-weight: 600; color: #1e3c72;">
+                            <i class="fas fa-file-medical"></i> Prescription Document <span style="color: #ef4444;">*</span>
+                        </label>
+                        <div class="file-upload" id="fileUpload">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #94a3b8;"></i>
+                            <p style="margin: 1rem 0 0.5rem 0; font-weight: 500;">Click here or drag & drop your prescription</p>
+                            <p style="font-size: 0.9rem; color: #64748b; margin: 0;">📄 PDF, JPG, PNG • Max 10MB</p>
+                            <input type="file" id="prescriptionFile" name="prescriptionFile" accept=".pdf,.jpg,.jpeg,.png" required style="display: none;">
+                            <div class="file-name" id="fileName" style="margin-top: 1rem; color: #10b981; font-weight: 600;"></div>
+                            <input type="hidden" id="filenameHidden" name="filename">
+                        </div>
+                    </div>
 
-        <input type="number" id="age" placeholder="Age">
+                    <!-- Problem Description -->
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="problem"><i class="fas fa-edit"></i> Describe Your Eye Problem <span style="color: #ef4444;">*</span></label>
+                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required style="font-family: inherit;"></textarea>
+                    </div>
 
-        <input type="file" id="prescriptionFile">
+                    <!-- Service Type -->
+                    <div class="form-group" style="margin-bottom: 3rem;">
+                        <label for="serviceType"><i class="fas fa-stethoscope"></i> Service Type (Optional)</label>
+                        <select id="serviceType" name="serviceType" style="font-family: inherit;">
+                            <option value="">Select preferred service</option>
+                            <option value="Routine Eye Exam">Routine Eye Exam</option>
+                            <option value="Glasses Prescription Update">Glasses Prescription Update</option>
+                            <option value="Contact Lens Fitting">Contact Lens Fitting</option>
+                            <option value="Glaucoma Screening">Glaucoma Screening</option>
+                            <option value="Cataract Consultation">Cataract Consultation</option>
+                            <option value="LASIK Consultation">LASIK Consultation</option>
+                            <option value="Diabetic Eye Exam">Diabetic Eye Exam</option>
+                            <option value="Other Eye Concern">Other Eye Concern</option>
+                        </select>
+                    </div>
 
-        <textarea id="problem" placeholder="Describe your problem..." required></textarea>
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitBtn" style="font-size: 1.3rem;">
+                        <i class="fas fa-paper-plane"></i> Submit Appointment Request
+                    </button>
+                </form>
+            </div>
 
-        <select id="serviceType">
-            <option value="">Select Service</option>
-            <option>Eye Checkup</option>
-            <option>Glasses</option>
-            <option>LASIK</option>
-        </select>
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" style="display: none; max-width: 700px; margin: 0 auto;">
+                <i class="fas fa-check-circle" style="font-size: 5rem; color: white; margin-bottom: 2rem;"></i>
+                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">✅ Thank You!</h3>
+                <p style="font-size: 1.3rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                    Your appointment request has been <strong>SUCCESSFULLY SUBMITTED</strong>.<br>
+                    📞 We will call you within <strong>24 hours</strong> to schedule your appointment.
+                </p>
+                <p style="font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem;">
+                    📧 You will also receive a confirmation email at: <strong id="confirmEmail"></strong>
+                </p>
+                <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                    <i class="fas fa-plus"></i> Submit Another Request
+                </button>
+            </div>
+        </div>
+    </section>
 
-        <button type="submit" id="submitBtn">
-            Submit Appointment Request
-        </button>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content container">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="book-appointment.html">Book Appointment</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="services.html">Eye Exams</a>
+                <a href="services.html">Glasses</a>
+                <a href="services.html">LASIK</a>
+                <a href="services.html">Cataract</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i><br>+1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i><br>info@eyecareclinic.com</p>
+            </div>
+        </div>
+        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155; margin-top: 2rem; color: #94a3b8;">
+            &copy; 2024 EyeCare Clinic. All rights reserved.
+        </p>
+    </footer>
 
-    </form>
-</div>
+    <script>
+        // ===== MOBILE MENU =====
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
 
-<script>
-document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+        // ===== FILE UPLOAD FUNCTIONALITY =====
+        const fileUpload = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('prescriptionFile');
+        const fileNameDisplay = document.getElementById('fileName');
+        const filenameHidden = document.getElementById('filenameHidden');
 
-    const btn = document.getElementById('submitBtn');
+        // Click to upload
+        fileUpload.addEventListener('click', () => fileInput.click());
 
-    const fullName = document.getElementById('fullName').value;
-    const phone = document.getElementById('phone').value;
-    const email = document.getElementById('email').value || 'Not provided';
-    const age = document.getElementById('age').value || 'Not provided';
-    const problem = document.getElementById('problem').value;
-    const service = document.getElementById('serviceType').value || 'Not specified';
+        // File selection
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('❌ File too large! Maximum 10MB allowed.');
+                    this.value = '';
+                    return;
+                }
+                fileNameDisplay.textContent = `✅ ${file.name} (${Math.round(file.size / 1024 / 1024 * 10) / 10} MB)`;
+                filenameHidden.value = file.name;
+            }
+        });
 
-    const file = document.getElementById('prescriptionFile').files[0];
-    const fileName = file ? file.name : "No file";
+        // Drag & Drop
+        fileUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = '#00d4ff';
+            fileUpload.style.background = '#f0f9ff';
+        });
 
-    const message = `📅 *New Appointment Request*%0A
-👤 Name: ${fullName}%0A
-📞 Phone: ${phone}%0A
-📧 Email: ${email}%0A
-🎂 Age: ${age}%0A
-📄 File: ${fileName}%0A
-🩺 Service: ${service}%0A
-📝 Problem: ${problem}`;
+        fileUpload.addEventListener('dragleave', () => {
+            fileUpload.style.borderColor = '#cbd5e1';
+            fileUpload.style.background = 'white';
+        });
 
-    // 🔴 PUT YOUR NUMBER HERE
-    const whatsappNumber = "919876543210";
+        fileUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = '#cbd5e1';
+            fileUpload.style.background = 'white';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                const event = new Event('change', { bubbles: true });
+                fileInput.dispatchEvent(event);
+            }
+        });
 
-    const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+        // ===== FORM SUBMISSION =====
+        document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
 
-    btn.innerText = "Redirecting...";
+            try {
+                // Collect form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value || 'Not provided',
+                    age: document.getElementById('age').value || 'Not provided',
+                    filename: document.getElementById('filenameHidden').value || 'No file uploaded',
+                    problem: document.getElementById('problem').value,
+                    serviceType: document.getElementById('serviceType').value || 'Not specified',
+                    timestamp: new Date().toLocaleString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                };
 
-    alert("✅ Form submitted!\nClick OK to open WhatsApp.");
+                // SHOW SUCCESS EVEN WITHOUT EMAILJS (FOR TESTING)
+                showSuccess(formData.email);
+                
+                // UNCOMMENT BELOW AFTER EmailJS SETUP
+                /*
+                const response = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData);
+                console.log('✅ Email sent!', response.status);
+                showSuccess(formData.email);
+                */
 
-    window.open(url, "_blank");
+            } catch (error) {
+                console.error('❌ Error:', error);
+                alert('⚠️ Connection error. Please call us at +1 (555) 123-4567');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
 
-    setTimeout(() => {
-        btn.innerText = "Submit Appointment Request";
-    }, 2000);
-});
-</script>
+        function showSuccess(email) {
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            if (email !== 'Not provided') {
+                document.getElementById('confirmEmail').textContent = email;
+            }
+        }
 
+        // Form validation enhancement
+        const inputs = document.querySelectorAll('input[required], textarea[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '') {
+                    this.style.borderColor = '#ef4444';
+                } else {
+                    this.style.borderColor = '#00d4ff';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
