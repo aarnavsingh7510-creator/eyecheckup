@@ -1,138 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- All your existing head content stays the same -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment - EyeCare Clinic</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* [Keep all your existing CSS styles exactly the same] */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #1e293b; background: #f8fafc; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        /* Header */
-        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); position: fixed; width: 100%; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; }
-        .logo { font-size: 1.8rem; font-weight: 700; color: #1e3c72; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
-        .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #00d4ff; }
-        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: #1e3c72; }
-        
-        /* Hero */
-        .hero { display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 80px; }
-        .hero-content h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; }
-        .hero-content p { font-size: 1.4rem; opacity: 0.95; }
-        
-        /* Form Styles */
-        .section { padding: 80px 0; }
-        .form-container { background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto; }
-        .form-group { margin-bottom: 2rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1e3c72; }
-        .form-group input, .form-group select, .form-group textarea { 
-            width: 100%; padding: 1rem 1.5rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.3s; font-family: inherit;
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
-            outline: none; border-color: #00d4ff; box-shadow: 0 0 0 3px rgba(0,212,255,0.1); 
-        }
-        .file-upload { 
-            border: 2px dashed #cbd5e1; border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; 
-            transition: all 0.3s; background: white;
-        }
-        .file-upload:hover { border-color: #00d4ff; background: #f0f9ff; }
-        .submit-btn { 
-            width: 100%; background: linear-gradient(135deg, #25D366, #128C7E); color: white; 
-            border: none; padding: 1.5rem; border-radius: 50px; font-size: 1.3rem; font-weight: 600; 
-            cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.8rem;
-        }
-        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(37,211,102,0.4); }
-        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-        
-        /* WhatsApp Button */
-        .whatsapp-btn { 
-            background: linear-gradient(135deg, #25D366, #128C7E); color: white; 
-            border: none; padding: 1.2rem 2rem; border-radius: 50px; font-size: 1.1rem; 
-            font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; 
-            align-items: center; justify-content: center; gap: 0.8rem; width: 100%; margin-top: 1rem;
-            text-decoration: none;
-        }
-        .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(37,211,102,0.4); }
-        
-        /* Success Message */
-        .success-message { 
-            background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 4rem 3rem; 
-            border-radius: 20px; text-align: center; box-shadow: 0 20px 60px rgba(16,185,129,0.3);
-        }
-        
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999;
-        }
-        .loading-spinner { color: white; font-size: 3rem; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        /* Footer */
-        footer { background: #1e293b; color: white; padding: 4rem 0 2rem; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem; }
-        .footer-section h3 { margin-bottom: 1.5rem; color: #00d4ff; }
-        .footer-section a, .footer-section p { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 0.8rem; }
-        .footer-section a:hover { color: #00d4ff; }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links { position: fixed; left: -100%; top: 70px; flex-direction: column; background: white; width: 100%; text-align: center; padding: 2rem 0; box-shadow: 0 10px 27px rgba(0,0,0,0.05); transition: 0.3s; }
-            .nav-links.active { left: 0; }
-            .mobile-menu { display: block; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .form-container { padding: 2rem; margin: 1rem; }
-            .section { padding: 60px 0; }
-        }
-    </style>
+    <!-- [Keep all your existing styles exactly the same] -->
 </head>
 <body>
-    <!-- [Keep your existing Header, Hero, and Form HTML exactly the same until the form] -->
-    
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="index.html" class="logo">
-                <i class="fas fa-eye"></i>
-                EyeCare Clinic
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="book-appointment.html" style="color: #00d4ff; font-weight: 600;">Book Appointment</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+    <!-- [Keep your existing Header, Hero, Form HTML exactly the same] -->
 
-    <!-- Hero Section -->
-    <section class="hero" style="height: 60vh; background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22%23e3f2fd%22 fill-opacity=%221%22 d=%22M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,122.7C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>'); background-size: cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 80px;">
-        <div class="hero-content">
-            <h1>Book Your Eye Appointment</h1>
-            <p>Submit your details and get instant WhatsApp confirmation! 🩺📱</p>
-        </div>
-    </section>
-
-    <!-- Form Section -->
+    <!-- Form Section (updated button styling for WhatsApp) -->
     <section class="section">
         <div class="container">
             <div class="form-container" id="formContainer">
-                <h2 style="text-align: center; color: #1e3c72; margin-bottom: 1rem; font-size: 2.5rem;">Appointment Request</h2>
-                <p style="text-align: center; color: #64748b; font-size: 1.1rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    📋 Fill out the form and click submit to send your appointment request directly to WhatsApp!
-                </p>
-
+                <!-- Your existing form fields stay EXACTLY the same -->
                 <form id="appointmentForm">
-                    <!-- Row 1 -->
+                    <!-- Row 1: Full Name & Phone -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                         <div class="form-group">
                             <label for="fullName"><i class="fas fa-user"></i> Full Name <span style="color: #ef4444;">*</span></label>
@@ -140,47 +26,19 @@
                         </div>
                         <div class="form-group">
                             <label for="phone"><i class="fas fa-phone"></i> Phone Number <span style="color: #ef4444;">*</span></label>
-                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" required>
+                            <input type="tel" id="phone" name="phone" placeholder="9289546303" required>
                         </div>
                     </div>
 
-                    <!-- Row 2 -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="form-group">
-                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="your.email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
-                            <input type="number" id="age" name="age" min="1" max="120" placeholder="25">
-                        </div>
-                    </div>
+                    <!-- Rest of your form fields stay the same -->
+                    <!-- [Email, Age, Service Type, Problem Description] -->
 
-                    <!-- Service Type -->
-                    <div class="form-group" style="margin-bottom: 3rem;">
-                        <label for="serviceType"><i class="fas fa-stethoscope"></i> Service Type (Optional)</label>
-                        <select id="serviceType" name="serviceType">
-                            <option value="">Select preferred service</option>
-                            <option value="Routine Eye Exam">Routine Eye Exam</option>
-                            <option value="Glasses Prescription Update">Glasses Prescription Update</option>
-                            <option value="Contact Lens Fitting">Contact Lens Fitting</option>
-                            <option value="Glaucoma Screening">Glaucoma Screening</option>
-                            <option value="Cataract Consultation">Cataract Consultation</option>
-                            <option value="LASIK Consultation">LASIK Consultation</option>
-                            <option value="Diabetic Eye Exam">Diabetic Eye Exam</option>
-                            <option value="Other Eye Concern">Other Eye Concern</option>
-                        </select>
-                    </div>
-
-                    <!-- Problem Description -->
-                    <div class="form-group" style="margin-bottom: 3rem;">
-                        <label for="problem"><i class="fas fa-edit"></i> Describe Your Eye Problem <span style="color: #ef4444;">*</span></label>
-                        <textarea id="problem" name="problem" rows="5" placeholder="Example: Blurry vision in left eye for 2 weeks, headaches when reading, current prescription -2.50/-1.00 x 90..." required></textarea>
-                    </div>
-
-                    <!-- WhatsApp Submit Button -->
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        <i class="fab fa-whatsapp"></i> Send to WhatsApp Now
+                    <!-- WHATSAPP SUBMIT BUTTON -->
+                    <button type="submit" class="submit-btn" id="submitBtn" style="
+                        background: linear-gradient(135deg, #25D366, #128C7E) !important;
+                        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+                    ">
+                        <i class="fab fa-whatsapp"></i> Send to WhatsApp (9289546303)
                     </button>
                 </form>
             </div>
@@ -188,67 +46,88 @@
             <!-- Success Message -->
             <div id="successMessage" class="success-message" style="display: none; max-width: 700px; margin: 0 auto;">
                 <i class="fas fa-check-circle" style="font-size: 5rem; color: white; margin-bottom: 2rem;"></i>
-                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">✅ WhatsApp Message Sent!</h3>
-                <p style="font-size: 1.3rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                    Your appointment request is now being sent to our WhatsApp!<br>
-                    📱 Open WhatsApp and send the message to complete your request.
+                <h3 style="font-size: 2.2rem; margin-bottom: 1rem;">✅ WhatsApp Ready!</h3>
+                <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">
+                    Click below to send your appointment request to:<br>
+                    <strong style="font-size: 1.5rem;">📱 9289546303</strong>
                 </p>
                 <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Open WhatsApp Message
+                    <i class="fab fa-whatsapp"></i> Open WhatsApp Chat
                 </a>
-                <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; margin-top: 1rem;">
-                    <i class="fas fa-plus"></i> New Request
-                </button>
             </div>
         </div>
     </section>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <i class="fas fa-spinner fa-spin loading-spinner"></i>
-    </div>
-
-    <!-- [Keep your existing Footer] -->
-    <footer>
-        <div class="footer-content container">
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="book-appointment.html">Book Appointment</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <div class="footer-section">
-                <h3>Services</h3>
-                <a href="services.html">Eye Exams</a>
-                <a href="services.html">Glasses</a>
-                <a href="services.html">LASIK</a>
-                <a href="services.html">Cataract</a>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-phone"></i><br>9289546303</p>
-                <p><i class="fas fa-whatsapp"></i><br><strong>WhatsApp: 9289546303</strong></p>
-            </div>
-        </div>
-        <p style="text-align: center; padding-top: 2rem; border-top: 1px solid #334155; margin-top: 2rem; color: #94a3b8;">
-            &copy; 2024 EyeCare Clinic
-        </p>
-    </footer>
-
+    <!-- COMPLETE JAVASCRIPT WITH YOUR NUMBER 9289546303 -->
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const submitBtn = document.getElementById('submitBtn');
+            loadingOverlay.style.display = 'flex';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
+            
+            // Get all form data
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email')?.value || 'Not provided';
+            const age = document.getElementById('age')?.value || 'Not provided';
+            const serviceType = document.getElementById('serviceType')?.value || 'Not specified';
+            const problem = document.getElementById('problem').value;
+            
+            // ✅ YOUR WHATSAPP NUMBER: 9289546303
+            const clinicWhatsAppNumber = '9289546303';
+            
+            // Professional WhatsApp message format
+            const message = `🩺 *EYE CARE APPOINTMENT REQUEST* 🩺
+
+👤 *Patient Name:* ${fullName}
+📱 *Contact Number:* ${phone}
+📧 *Email:* ${email}
+🎂 *Age:* ${age}
+🏥 *Service Required:* ${serviceType}
+
+🔍 *Eye Problem Description:*
+${problem}
+
+⏰ *Please call patient ASAP to schedule appointment*
+
+---
+*EyeCare Clinic Auto-Request*`;
+
+            // Encode for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${clinicWhatsAppNumber}?text=${encodedMessage}`;
+            
+            // Show success after 2 seconds
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('whatsappLink').href = whatsappURL;
+                
+                // Auto-open WhatsApp
+                window.open(whatsappURL, '_blank');
+            }, 2000);
         });
 
-        // File upload functionality (optional - kept for completeness)
-        const fileUpload = document.getElementById('fileUpload');
-        const fileInput = document.getElementById('prescriptionFile');
-        const fileName = document.getElementById('fileName');
-        
-        if (fileUpload && fileInput) {
-            fileUpload.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', function() {
-                if (this.files[0]) {
-                    file
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+
+    <!-- [Keep your existing footer with updated WhatsApp number] -->
+    <footer>
+        <!-- ... existing footer content ... -->
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-whatsapp" style="color: #25D366;"></i><br><strong>WhatsApp: 9289546303</strong></p>
+            <p><i class="fas fa-phone"></i><br>+91 9289546303</p>
+        </div>
+    </footer>
+</body>
+</html>
